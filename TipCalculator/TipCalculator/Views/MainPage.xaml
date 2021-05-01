@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:TipCalculator.Converters;assembly=TipCalculator"
+             x:Class="TipCalculator.Views.MainPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:DecimalToMoney x:Key="ToMoney"></converters:DecimalToMoney>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <TableView Intent="Form" Margin="20, 15">
+        <TableSection Title="Data">
+            <EntryCell x:Name="txtTotal" Text="{Binding TipModel.Total}" Label="Total" Placeholder="$0.00" HorizontalTextAlignment="End"></EntryCell>
+            <EntryCell x:Name="txtTip" Text="{Binding TipModel.Tip}" Label="Tip" Placeholder="10%" HorizontalTextAlignment="End"></EntryCell>
+            <EntryCell x:Name="txtPeopleCount" Text="{Binding TipModel.PeopleCount}" Label="People" Placeholder="2" HorizontalTextAlignment="End"></EntryCell>
+            <ViewCell>
+                <ViewCell.View>
+                    <StackLayout>
+                        <Button x:Name="btnCalculate" Text="Calculate" Command="{Binding DoOperations}"></Button>
+                    </StackLayout>
+                </ViewCell.View>
+            </ViewCell>
+        </TableSection>
+        <TableSection Title="Result">
+            <TextCell x:Name="lblTip" Text="Tip" 
+                      Detail="{Binding TipModel.TotalTip, Converter={StaticResource ToMoney}}"></TextCell>
+            <TextCell x:Name="lblTotal" Text="Total" 
+                      Detail="{Binding TipModel.TotalWithTip, Converter={StaticResource ToMoney}}"></TextCell>
+            <TextCell x:Name="lblTipPerPerson" Text="Tip per person" 
+                      Detail="{Binding TipModel.TipPerPerson, Converter={StaticResource ToMoney}}"></TextCell>
+            <TextCell x:Name="lblTotalPerPerson" Text="Total per person" 
+                      Detail="{Binding TipModel.TotalPerPerson, Converter={StaticResource ToMoney}}"></TextCell>
+        </TableSection>
+    </TableView>
+
+</ContentPage>
